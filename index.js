@@ -9,6 +9,8 @@ const inquirer = require('inquirer');
 //Require each role
 //Manager
 const Manager = require('./src/employees/Manager')
+const Engineer = require('./src/employees/Engineer')
+const Engineer = require('./src/employees/Intern')
 const markdown = require('./lib/markdown');
 const employees = [];
 
@@ -18,8 +20,10 @@ function main() {
             employees.push(new Manager(...Object.values(answers)));
             console.log(employees)
         })
-        .then()
-
+        .then(() => {
+            askForRole()
+        })
+        
         .catch((err) => {
             console.log(err);
         });
@@ -29,7 +33,7 @@ main();
 
 
 
-function askForEmployee(type = "Manager") {
+function askForEmployee(type) {
     const baseQuestions = [
         {
             type: "input",
@@ -91,7 +95,7 @@ function askForRole() {
             {
                 type: 'list',
                 message: 'What additional employee do you want to add?',
-                name: 'license',
+                name: 'role',
                 choices: [
                     'Engineer',
                     'Intern',
@@ -101,19 +105,49 @@ function askForRole() {
             },
         ])
         .then((response) => {
-            switch (response.answer) {
+            switch (response.role) {
                 case "Engineer":
                     //Run engineer questions
-
-                    break;
+                    {
+                        return askForEmployee("Engineer")
+                            .then((answers) => {
+                                employees.push(new Engineer(...Object.values(answers)));
+                                console.log(employees)
+                            })
+                            .then(() => {
+                                askForRole()
+                            })
+                            
+                            .catch((err) => {
+                                console.log(err);
+                            });
+                    }
                 case "Intern":
                     // Run intern questions
-
-                    break;
+                    {
+                        return askForEmployee("Intern")
+                            .then((answers) => {
+                                employees.push(new Intern(...Object.values(answers)));
+                                console.log(employees)
+                            })
+                            .then(() => {
+                                askForRole()
+                            })
+                            
+                            .catch((err) => {
+                                console.log(err);
+                            });
+                    }
                 case "No more employees to add":
                     // stop the program
                     // render the html
+                    let employeesDone = employees
+                    let pageContent = markdown.generateReadme(employeesDone)
 
+                    //Create readme file
+                    fs.writeFile('index.html', pageContent, (err) =>
+                        err ? console.error(err) : console.log('Success!')
+                    )
                     break;
 
             }
