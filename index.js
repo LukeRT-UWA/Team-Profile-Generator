@@ -5,8 +5,30 @@ const inquirer = require('inquirer');
 //Require Jest?
 
 //Require markdown file
+
+//Require each role
+//Manager
+const Manager = require('./src/employees/Manager')
 const markdown = require('./lib/markdown');
 const employees = [];
+
+function main() {
+    return askForEmployee("Manager")
+        .then((answers) => {
+            employees.push(new Manager(...Object.values(answers)));
+            console.log(employees)
+        })
+        .then()
+
+        .catch((err) => {
+            console.log(err);
+        });
+}
+main();
+
+
+
+
 function askForEmployee(type = "Manager") {
     const baseQuestions = [
         {
@@ -63,14 +85,37 @@ function askForEmployee(type = "Manager") {
 
 }
 
-function main() {
-    return askForEmployee("Manager")
-        .then((answers) => {
-            employees.push(new Manager(...Object.values(answers)));
-        })
-        .then()
-        .catch((err) => {
-            console.log(err);
+function askForRole() {
+    return inquirer
+        .prompt([
+            {
+                type: 'list',
+                message: 'What additional employee do you want to add?',
+                name: 'license',
+                choices: [
+                    'Engineer',
+                    'Intern',
+                    'No more employees to add',
+
+                ]
+            },
+        ])
+        .then((response) => {
+            switch (response.answer) {
+                case "Engineer":
+                    //Run engineer questions
+
+                    break;
+                case "Intern":
+                    // Run intern questions
+
+                    break;
+                case "No more employees to add":
+                    // stop the program
+                    // render the html
+
+                    break;
+
+            }
         });
 }
-main();
