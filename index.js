@@ -5,7 +5,7 @@ const inquirer = require('inquirer');
 //Require Jest?
 
 //Require markdown file
-const markdown = require('.\lib\markdown.js')
+const markdown = require('./lib/markdown')
 
 inquirer
     .prompt([
@@ -22,7 +22,7 @@ inquirer
         {
             type: 'list',
             message: 'What role is this team member?',
-            name: 'license',
+            name: 'memberRole',
             choices: [
                 'Manager',
                 'Engineer',
@@ -30,24 +30,6 @@ inquirer
 
             ]
         },
-        {
-            type: 'input',
-            message: `What is this team member's ID?`,
-            name: 'memberID',
-        },
-        {
-            type: 'input',
-            message: `What is this team member's e-mail address?`,
-            name: 'memberEmail',
-        },
-        {
-            type: 'input',
-            message: `What is this team member's Office Number?`,
-            name: 'memberOfficeNo',
-        },
-     
-
-
     ])
     .then((response) => {
 
