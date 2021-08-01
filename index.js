@@ -4,14 +4,14 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 //Require Jest?
 
-//Require markdown file
-
 //Require each role
-//Manager
 const Manager = require('./src/employees/Manager')
 const Engineer = require('./src/employees/Engineer')
-const Engineer = require('./src/employees/Intern')
+const Intern = require('./src/employees/Intern')
+// Require markdown file
 const markdown = require('./lib/markdown');
+
+//Blank array to add response info to
 const employees = [];
 
 function main() {
@@ -141,8 +141,8 @@ function askForRole() {
                 case "No more employees to add":
                     // stop the program
                     // render the html
-                    let employeesDone = employees
-                    let pageContent = markdown.generateReadme(employeesDone)
+                    
+                    let pageContent = markdown.generatePage(employees)
 
                     //Create readme file
                     fs.writeFile('index.html', pageContent, (err) =>
