@@ -151,10 +151,10 @@ function renderPage(employees) {
    // stop the program
                     // render the html
 
-                    let pageContent = markdown.generatePage(employees)
+                     
                 
                     //Create readme file
-                    fs.writeFile('index.html', pageContent, function (err) {
+                    fs.writeFile('index.html', markdown.generatePage(employees), function (err) {
                         if (err) { console.error(err) }
                     }
                     )
@@ -164,13 +164,21 @@ function renderPage(employees) {
                         const employee = employees[index];
                         console.log(employee)
                         console.log(employee.constructor.name)
-                        let pageContentManager = markdown.generateMiddleManager(employee)
+                        
                         if(employee.constructor.name === "Manager") {
-                            fs.appendFile('index.html', pageContentManager, function (err) {
+                            fs.appendFile('index.html', markdown.generateMiddleManager(employee), function (err) {
                                 if (err) { console.error(err) }
-                        })
-                    }
+                        })}
 
+                        if(employee.constructor.name === "Engineer") {
+                            fs.appendFile('index.html', markdown.generateMiddleEngineer(employee), function (err) {
+                                if (err) { console.error(err) }
+                        })}
+
+                        if(employee.constructor.name === "Intern") {
+                            fs.appendFile('index.html', markdown.generateMiddleIntern(employee), function (err) {
+                                if (err) { console.error(err) }
+                        })}
                     }
                     // fs.appendFile('index.html', pageContent, function (err) {
                     //     if (err) { console.error(err) }
