@@ -154,7 +154,7 @@ function renderPage(employees) {
                      
                 
                     //Create readme file
-                    fs.writeFile('index.html', markdown.generatePage(employees), function (err) {
+                    fs.writeFile('index.html', markdown.generatePage(), function (err) {
                         if (err) { console.error(err) }
                     }
                     )
@@ -170,27 +170,26 @@ function renderPage(employees) {
                                 if (err) { console.error(err) }
                         })}
 
-                        if(employee.constructor.name === "Engineer") {
+                        else if(employee.constructor.name === "Engineer") {
                             fs.appendFile('index.html', markdown.generateMiddleEngineer(employee), function (err) {
                                 if (err) { console.error(err) }
                         })}
 
-                        if(employee.constructor.name === "Intern") {
+                        else if(employee.constructor.name === "Intern") {
                             fs.appendFile('index.html', markdown.generateMiddleIntern(employee), function (err) {
                                 if (err) { console.error(err) }
                         })}
                     }
-                    // fs.appendFile('index.html', pageContent, function (err) {
-                    //     if (err) { console.error(err) }
-                    // }
-                    // )
-                    // let pageContent = markdown.generatePage(employees)
-                
-                    // //Create readme file
-                    // fs.appendFile('index.html', pageContent, function (err) {
-                    //     if (err) { console.error(err) }
-                    // }
-                    // )
 
+                    finishPage()
+
+                    
+                 
+            
 
 }
+function finishPage(){
+    fs.appendFile('index.html', markdown.generateEnd(), function (err) {
+        if (err) { console.error(err) }
+    }
+    )}
