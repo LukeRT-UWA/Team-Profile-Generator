@@ -23,7 +23,7 @@ function main() {
         .then(() => {
             askForRole()
         })
-        
+
         .catch((err) => {
             console.log(err);
         });
@@ -82,7 +82,7 @@ function askForEmployee(type) {
             })
             break;
         default:
-            throw new Error("Failed no type provided")
+            throw new Error("Failed wrong or no type provided")
     }
 
     return inquirer.prompt(baseQuestions)
@@ -99,6 +99,7 @@ function askForRole() {
                 choices: [
                     'Engineer',
                     'Intern',
+                    new inquirer.Separator(),
                     'No more employees to add',
 
                 ]
@@ -117,7 +118,7 @@ function askForRole() {
                             .then(() => {
                                 askForRole()
                             })
-                            
+
                             .catch((err) => {
                                 console.log(err);
                             });
@@ -133,23 +134,55 @@ function askForRole() {
                             .then(() => {
                                 askForRole()
                             })
-                            
+
                             .catch((err) => {
                                 console.log(err);
                             });
                     }
                 case "No more employees to add":
-                    // stop the program
-                    // render the html
-                    
-                    let pageContent = markdown.generatePage(employees)
-
-                    //Create readme file
-                    fs.writeFile('index.html', pageContent, (err) =>
-                        err ? console.error(err) : console.log('Success!')
-                    )
+                    renderPage(employees)
                     break;
 
             }
         });
+}
+
+function renderPage(employees) {
+   // stop the program
+                    // render the html
+
+                    let pageContent = markdown.generatePage(employees)
+                
+                    //Create readme file
+                    fs.writeFile('index.html', pageContent, function (err) {
+                        if (err) { console.error(err) }
+                    }
+                    )
+                    // 
+                    //Create readme file
+                    for (let index = 0; index < employees.length; index++) {
+                        const employee = employees[index];
+                        console.log(employee)
+                        console.log(employee.constructor.name)
+                        let pageContentManager = markdown.generateMiddleManager(employee)
+                        if(employee.constructor.name === "Manager") {
+                            fs.appendFile('index.html', pageContentManager, function (err) {
+                                if (err) { console.error(err) }
+                        })
+                    }
+
+                    }
+                    // fs.appendFile('index.html', pageContent, function (err) {
+                    //     if (err) { console.error(err) }
+                    // }
+                    // )
+                    // let pageContent = markdown.generatePage(employees)
+                
+                    // //Create readme file
+                    // fs.appendFile('index.html', pageContent, function (err) {
+                    //     if (err) { console.error(err) }
+                    // }
+                    // )
+
+
 }
