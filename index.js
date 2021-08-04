@@ -148,48 +148,34 @@ function askForRole() {
 }
 
 function renderPage(employees) {
-   // stop the program
-                    // render the html
-
-                     
+                    try{
+                    fs.writeFileSync('index.html', markdown.generatePage())
+                    }catch(err) {console.error(err)}
                 
-                    //Create readme file
-                    fs.writeFile('index.html', markdown.generatePage(), function (err) {
-                        if (err) { console.error(err) }
-                    }
-                    )
-                    // 
-                    //Create readme file
+                  
+                    try{
                     for (let index = 0; index < employees.length; index++) {
                         const employee = employees[index];
                         console.log(employee)
                         console.log(employee.constructor.name)
                         
                         if(employee.constructor.name === "Manager") {
-                            fs.appendFile('index.html', markdown.generateMiddleManager(employee), function (err) {
-                                if (err) { console.error(err) }
-                        })}
+                            fs.appendFileSync('index.html', markdown.generateMiddleManager(employee))}
 
-                        else if(employee.constructor.name === "Engineer") {
-                            fs.appendFile('index.html', markdown.generateMiddleEngineer(employee), function (err) {
-                                if (err) { console.error(err) }
-                        })}
+                        if(employee.constructor.name === "Engineer") {
+                            fs.appendFileSync('index.html', markdown.generateMiddleEngineer(employee))}
 
-                        else if(employee.constructor.name === "Intern") {
-                            fs.appendFile('index.html', markdown.generateMiddleIntern(employee), function (err) {
-                                if (err) { console.error(err) }
-                        })}
-                    }
+                        if(employee.constructor.name === "Intern") {
+                            fs.appendFileSync('index.html', markdown.generateMiddleIntern(employee))}
+                    }}catch(err) {console.error(err)}
 
-                    finishPage()
+                    try{
+                    fs.appendFileSync('index.html', markdown.generateEnd())
+                    }catch(err) {console.error(err)}
+                    
 
                     
                  
             
 
 }
-function finishPage(){
-    fs.appendFile('index.html', markdown.generateEnd(), function (err) {
-        if (err) { console.error(err) }
-    }
-    )}
