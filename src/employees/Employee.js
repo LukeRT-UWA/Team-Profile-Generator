@@ -20,7 +20,7 @@ Employee.prototype.getEmail = function () {
 Employee.prototype.getName = function(){
     return this.name
 }
-Employee.prototype.getId = function () {
+Employee.prototype.getID = function () {
     return this.id;
 };
 
