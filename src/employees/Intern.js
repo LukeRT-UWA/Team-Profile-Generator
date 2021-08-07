@@ -7,4 +7,13 @@ constructor (name, id, email, school) {
 }
 }
 
+Intern.prototype.getSchool = function(){
+    return this.school
+}
+
+Intern.prototype.getRole = function(){
+    return "Intern"
+}
+
+
 module.exports = Intern;
