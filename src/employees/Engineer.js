@@ -7,4 +7,12 @@ constructor (name, id, email, github) {
 }
 }
 
+Engineer.prototype.getGithub = function(){
+    return this.github
+}
+
+Employee.prototype.getRole = function(){
+    return "Engineer"
+}
+
 module.exports = Engineer;
