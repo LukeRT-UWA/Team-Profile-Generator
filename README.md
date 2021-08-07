@@ -16,7 +16,6 @@ Team profile generator that runs in the command line. Accepts entries for three 
 Requires installation of inquirer. Clone repo and run locally with node.
 
 ## Usage
-See video demonstration.
 https://user-images.githubusercontent.com/84198206/128592228-98119ca6-3300-4e5a-b986-af5a73a20773.mp4
 
 ## License
