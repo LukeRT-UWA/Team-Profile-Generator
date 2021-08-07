@@ -7,4 +7,12 @@ class Manager extends Employee {
 }
 }
 
+Manager.prototype.getOfficeNo = function(){
+    return this.officeNo
+}
+
+Manager.prototype.getRole = function(){
+    return "Manager"
+}
+
 module.exports = Manager;
